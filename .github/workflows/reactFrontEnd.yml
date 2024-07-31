@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - featureReact
+      - main
   workflow_dispatch:  # Allow manual workflow dispatches
 
 jobs: 
