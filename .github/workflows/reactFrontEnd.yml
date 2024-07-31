@@ -52,7 +52,7 @@ jobs:
           projectBaseDir: .
           args: >
             -Dsonar.organization=pocalmpracrice
-            -Dsonar.projectKey=PocALmPracrice_ReactFrontEnd
+            -Dsonar.projectKey=pocalmpracrice_reactdocker
             -Dsonar.sources=.
             -Dsonar.host.url=https://sonarcloud.io
         env:
