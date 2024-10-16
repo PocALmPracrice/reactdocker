@@ -14,19 +14,16 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            # cd frontend
             npm install
 
       - run:
           name: Update Browserslist
           command: |
-            # cd frontend
             npx browserslist@latest --update-db
 
       - run:
           name: Build Project
           command: |
-            # cd frontend
             CI=false npm run build
 
       - setup_remote_docker:
@@ -35,7 +32,6 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            # cd frontend
             docker build -t shadabmaliks/circleci_react:latest .
 
       - run:
@@ -51,7 +47,6 @@ workflows:
   version: 2
   build_and_push:
     jobs:
-      - build
-        context:
+      - build:
+          context:
             - my_context
-            
