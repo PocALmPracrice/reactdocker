@@ -24,7 +24,7 @@ jobs:
             npm run build
 
       - setup_remote_docker:
-          version: 20.10.12  # Updated to a more stable version
+          # version: 20.10.12  # Updated to a more stable version
           docker_layer_caching: true
 
       - run:
