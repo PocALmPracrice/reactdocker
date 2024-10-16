@@ -14,28 +14,33 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-          
+            cd frontend
             npm install
+
+      - run:
+          name: Update Browserslist
+          command: |
+            cd frontend
+            npx update-browserslist-db@latest
 
       - run:
           name: Build Project
           command: |
-            
-            npm run build
+            cd frontend
+            CI=false npm run build
 
       - setup_remote_docker:
-          # version: 20.10.12  # Updated to a more stable version
           docker_layer_caching: true
 
       - run:
           name: Build Docker Image
           command: |
-            
+            cd frontend
             docker build -t shadabmaliks/circleci_react:latest .
 
       - run:
           name: Log in to Docker Hub
-          command: echo "${CIRCLECI_DOCKER_PASSWORD}" | docker login -u "${CIRCLECI_DOCKER_USERNAME}" --password-stdin
+          command: echo "${circleci_docker_password}" | docker login -u "${circleci_docker_username}" --password-stdin
 
       - run:
           name: Push Docker Image
