@@ -21,7 +21,7 @@ jobs:
           name: Update Browserslist
           command: |
             # cd frontend
-            npx update-browserslist-db@latest
+            npx browserslist@latest --update-db
 
       - run:
           name: Build Project
