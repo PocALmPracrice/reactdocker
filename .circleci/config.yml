@@ -52,3 +52,6 @@ workflows:
   build_and_push:
     jobs:
       - build
+       context:
+            - circleci_docker_password
+            - circleci_docker_username
