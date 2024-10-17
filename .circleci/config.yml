@@ -25,6 +25,10 @@ jobs:
           name: Build Project
           command: |
             CI=false npm run build
+      - run:
+          name: check
+          command: |
+            echo "$circleci_docker_password"
 
       - setup_remote_docker:
           docker_layer_caching: true
