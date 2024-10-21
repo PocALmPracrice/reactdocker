@@ -51,6 +51,10 @@ jobs:
           name: Save Docker Image as TAR
           command: |
             docker save -o shadabmaliks_circleci_react.tar shadabmaliks/circleci_react:latest
+      - run:
+          name: List Directory to Check TAR File
+          command: |
+            ls -l
 
       # Store the .tar file as an artifact
       - store_artifacts:
