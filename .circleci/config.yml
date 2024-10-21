@@ -46,6 +46,16 @@ jobs:
           name: Push Docker Image
           command: |
             docker push shadabmaliks/circleci_react:latest
+             # Save the Docker image as a .tar file
+      - run:
+          name: Save Docker Image as TAR
+          command: |
+            docker save -o shadabmaliks_circleci_react.tar shadabmaliks/circleci_react:latest
+
+      # Store the .tar file as an artifact
+      - store_artifacts:
+          path: shadabmaliks_circleci_react.tar
+          destination: docker-image
 
 workflows:
   version: 2
