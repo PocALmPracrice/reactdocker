@@ -153,7 +153,7 @@ jobs:
           image-ref: '.'
           github-pat: ${{ secrets.GH_TOKEN }}
       - name: Upload Trivy SBOM
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: trivy result
           path: dependency-results.sbom.json
