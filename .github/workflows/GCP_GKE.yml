@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
- 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,9 +16,14 @@ jobs:
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}  # Your GCP Project ID secret
+        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}  # Service account key file (JSON)
         export_default_credentials: true
+
+    - name: Authenticate with Google Cloud
+      run: |
+        gcloud auth activate-service-account --key-file=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Configure Kubectl
       run: |
@@ -26,5 +31,4 @@ jobs:
 
     - name: Deploy to GKE
       run: |
-        kubectl apply -f react-deployment.yaml # For React repo
-        # kubectl apply -f node-deployment.yaml  # For Node repo
+        kubectl apply -f k8s/react-deployment.yaml  # Ensure your manifest is located in the 'k8s' folder
