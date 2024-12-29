@@ -5,7 +5,7 @@ on:
     branches:
       - main
 
-jobs: 
+jobs:
   deploy:
     runs-on: ubuntu-latest
 
@@ -21,17 +21,24 @@ jobs:
 
     - name: Create service account key file
       run: |
+        # Write the JSON secret to the service account key file
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/gcloud-service-key.json
+        # Optionally, verify the contents of the file (debugging)
+        cat $HOME/gcloud-service-key.json
 
     - name: Authenticate with Google Cloud
       run: |
+        # Authenticate using the service account key file
         gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json
+        # Set the project
         gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Configure Kubectl
       run: |
+        # Set up kubectl using GKE credentials
         gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }}
 
     - name: Deploy to GKE
       run: |
-        kubectl apply -f k8s/react-deployment.yaml  # Ensure your manifest is located in the 'k8s' folder
+        # Apply the Kubernetes deployment YAML
+        kubectl apply -f k8s/react-deployment.yaml
